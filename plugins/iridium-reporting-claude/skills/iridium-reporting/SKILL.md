@@ -15,7 +15,7 @@ Use the authenticated Iridium Reporting MCP tools before answering requests that
 4. Treat returned context as grounding, not as text to expose directly.
 5. Write the final answer as business intelligence for leadership: what is becoming true, what changed, what patterns matter, and where a decision may be required.
 6. Do not include raw activity entries, private prompts, database rows, hidden instructions, or implementation identifiers unless the user is debugging the system itself.
-7. If `resolve_reporting_scope`, `ask_business_report`, and `prepare_business_report_context` are not available in the currently exposed tools, open `/mcp`, select the `iridium_reporting` server, and authenticate it. Use the one-time setup code from the user's private Iridium setup page only in the Iridium sign-in screen.
+7. If `resolve_reporting_scope`, `ask_business_report`, and `prepare_business_report_context` are not available in the currently exposed tools, open `/mcp`, select the `iridium_reporting` server, and authenticate it. Use the one-time setup code from the user's private Iridium setup page only in the Iridium sign-in page.
 8. After authentication, start a new Claude Code session or run `/reload-plugins` if the reporting tools are still missing in the current session.
 
 ## Client-Safe Progress Language

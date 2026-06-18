@@ -44,6 +44,11 @@ def test_claude_plugin_points_to_claude_repository_and_gateway_without_private_d
     assert manifest["repository"] == "https://github.com/Jdashford/iridium-claude-plugin"
     assert "codex" not in manifest["repository"].lower()
     assert mcp["mcpServers"]["iridium"]["url"] == "https://connect.iridiumai.co/mcp"
+    assert "open `/mcp`" in all_text
+    assert "Select `iridium`" in all_text
+    assert "Choose **Authenticate**" in all_text
+    assert "Paste the setup code only into the Iridium sign-in page" in all_text
+    assert "Do not paste it into Claude Code chat" in all_text
     assert "connect.iridium.ai" not in all_text
     assert "https://iridium.ai" not in all_text
     assert "Railway" not in all_text
@@ -66,6 +71,11 @@ def test_claude_reporting_plugin_points_to_claude_repository_and_gateway_without
     assert "resolve_reporting_scope" in skill
     assert "ask_business_report" in skill
     assert "prepare_business_report_context" in skill
+    assert "open `/mcp`" in all_text
+    assert "Select `iridium_reporting`" in all_text
+    assert "Choose **Authenticate**" in all_text
+    assert "Paste the setup code only into the Iridium sign-in page" in all_text
+    assert "Do not paste it into Claude Code chat" in all_text
     assert "ask_advisor" not in skill
     assert "connect.iridium.ai" not in all_text
     assert "https://iridium.ai" not in all_text

@@ -17,7 +17,7 @@ Use the authenticated Iridium MCP advisor before answering requests that depend 
 6. Answer normally in Claude Code, using the advisor voice and context returned by the tool.
 7. If the user gives durable new information, save it with the available memory tools after `ask_advisor` lists them.
 8. Do not claim memory was saved unless the memory tool returns `status: recorded`.
-9. If `ask_advisor` is not available in the currently exposed tools, open `/mcp`, select the `iridium` server, and authenticate it. Use the one-time setup code from the user's private Iridium setup page only in the Iridium sign-in screen.
+9. If `ask_advisor` is not available in the currently exposed tools, open `/mcp`, select the `iridium` server, and authenticate it. Use the one-time setup code from the user's private Iridium setup page only in the Iridium sign-in page.
 10. After authentication, start a new Claude Code session or run `/reload-plugins` if the MCP tools are still missing in the current session.
 
 ## Recall Guidance
