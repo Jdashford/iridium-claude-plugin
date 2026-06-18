@@ -16,7 +16,7 @@ def plugin_text_assets(root: Path) -> str:
 def test_claude_marketplace_exposes_claude_plugin():
     marketplace = json.loads(Path(".claude-plugin/marketplace.json").read_text())
 
-    assert marketplace["name"] == "iridium"
+    assert marketplace["name"] == "iridium-claude"
     assert marketplace["owner"]["name"] == "Iridium"
     entries = {entry["name"]: entry for entry in marketplace["plugins"]}
     assert set(entries) == {"iridium-claude"}
