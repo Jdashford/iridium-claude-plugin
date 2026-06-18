@@ -19,6 +19,18 @@
       },
       "category": "productivity",
       "homepage": "https://iridiumai.co/claude"
+    },
+    {
+      "name": "iridium-reporting-claude",
+      "source": "./plugins/iridium-reporting-claude",
+      "description": "Connect Claude Code to Iridium business reporting for an account.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Iridium",
+        "url": "https://iridiumai.co"
+      },
+      "category": "productivity",
+      "homepage": "https://iridiumai.co/claude/reporting"
     }
   ]
 }

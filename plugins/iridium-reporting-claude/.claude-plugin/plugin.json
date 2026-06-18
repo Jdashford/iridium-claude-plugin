@@ -1,0 +1,15 @@
+{
+  "name": "iridium-reporting-claude",
+  "version": "1.0.0",
+  "description": "Connect Claude Code to Iridium business reporting for an account.",
+  "author": {
+    "name": "Iridium",
+    "url": "https://iridiumai.co"
+  },
+  "homepage": "https://iridiumai.co/claude/reporting",
+  "repository": "https://github.com/Jdashford/iridium-claude-plugin",
+  "license": "Proprietary",
+  "keywords": ["business-intelligence", "reporting", "mcp", "productivity"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}
