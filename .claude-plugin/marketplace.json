@@ -1,0 +1,24 @@
+{
+  "name": "iridium",
+  "owner": {
+    "name": "Iridium",
+    "url": "https://iridiumai.co"
+  },
+  "metadata": {
+    "description": "Iridium plugins for connecting AI agents to private advisor memory."
+  },
+  "plugins": [
+    {
+      "name": "iridium-claude",
+      "source": "./plugins/iridium-claude",
+      "description": "Connect Claude Code to your private Iridium advisor memory.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Iridium",
+        "url": "https://iridiumai.co"
+      },
+      "category": "productivity",
+      "homepage": "https://iridiumai.co/claude"
+    }
+  ]
+}

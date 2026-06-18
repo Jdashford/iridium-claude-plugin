@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "iridium": {
+      "type": "http",
+      "url": "https://connect.iridiumai.co/mcp",
+      "startup_timeout_sec": 10,
+      "tool_timeout_sec": 60
+    }
+  }
+}
