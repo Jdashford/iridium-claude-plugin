@@ -22,7 +22,7 @@ def test_claude_marketplace_exposes_claude_plugins():
     entries = {entry["name"]: entry for entry in marketplace["plugins"]}
     assert set(entries) == {"iridium-claude", "iridium-reporting-claude"}
     assert entries["iridium-claude"]["source"] == "./plugins/iridium-claude"
-    assert entries["iridium-claude"]["version"] == "1.0.1"
+    assert entries["iridium-claude"]["version"] == "1.0.2"
     assert entries["iridium-claude"]["description"] == (
         "Connect Claude Code to your private Iridium advisor memory."
     )
@@ -42,7 +42,7 @@ def test_claude_plugin_points_to_claude_repository_and_gateway_without_private_d
     all_text = plugin_text_assets(CLAUDE_PLUGIN_ROOT)
 
     assert manifest["name"] == "iridium-claude"
-    assert manifest["version"] == "1.0.1"
+    assert manifest["version"] == "1.0.2"
     assert manifest["repository"] == "https://github.com/Jdashford/iridium-claude-plugin"
     assert "codex" not in manifest["repository"].lower()
     assert mcp["mcpServers"]["iridium"]["url"] == "https://connect.iridiumai.co/mcp"
@@ -54,6 +54,8 @@ def test_claude_plugin_points_to_claude_repository_and_gateway_without_private_d
     assert "recall_client_memory_tool" in all_text
     assert "Target entities are answer subjects" in all_text
     assert "time_focus" in all_text
+    assert "exact_handles" in all_text
+    assert "ordinary short hashes remain text anchors" in all_text
     assert "answer_evidence_items" in all_text
     assert "search_loop_contract" in all_text
     assert "connect.iridium.ai" not in all_text
