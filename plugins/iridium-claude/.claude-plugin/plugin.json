@@ -1,6 +1,6 @@
 {
   "name": "iridium-claude",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Connect Claude Code to your private Iridium advisor memory.",
   "author": {
     "name": "Iridium",
