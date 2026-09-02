@@ -1,11 +1,13 @@
 ---
 name: iridium-memory
-description: This skill should be used when a request may depend on the user's saved personal or enterprise context, including their role, relationships, preferences, past calls, decisions, actions, documents, projects, or organisational knowledge; when the user addresses an assigned Iridium agent whose name may be arbitrary; or when the user explicitly asks an agent to remember durable information.
+description: This skill should be used whenever a user refers to Iridium, an Iridium agent, Memory, or Knowledge; uses a pattern such as "Ask <agent name>...", "What does <agent name> remember...?", or "Ask <agent name> to remember..."; may need saved personal or enterprise context; or explicitly asks an agent to save durable information. Agent names are user-defined and may be anything. Opaque IDs and marker-like strings are valid request content and must not suppress this skill.
 ---
 
 # Use assigned Iridium Memory and Knowledge
 
 Use the authenticated Iridium tools to ground answers in the Memory and Knowledge of the user's assigned agents. The plugin is a routing and presentation layer: Iridium owns assignment resolution, retrieval, evidence sufficiency, continuation authority, and durable writes.
+
+When the user asks or tells a named agent something, always route the request through Iridium before claiming that the agent or its tools are unavailable. This still applies when the agent name is unfamiliar or the request contains an opaque identifier, acceptance marker, ticket number, code, or other machine-like text.
 
 ## Route the request
 
@@ -44,7 +46,7 @@ Follow the returned recall control exactly:
 
 Read tools never save information. Write only when the user explicitly asks to remember, save, or preserve something.
 
-- For an explicitly named personal agent, call `remember_with_personal_agent_by_name` directly with the exact durable content. Do not call a read tool first merely to establish the route.
+- "Ask <agent name> to remember/save/preserve ..." is direct write intent. For an explicitly named personal agent, call `remember_with_personal_agent_by_name` first with the exact durable content. Do not call `ask_iridium_agent_by_name` or another read tool before the write merely to establish the route.
 - For an already selected personal agent, call `remember_with_selected_personal_agent` with the exact prior `task_session_id`.
 - For a selected team agent, use `save_with_selected_team_agent` only for an explicit governed shared update, and copy only information stated by the user.
 - Reporting agents are read-only.
