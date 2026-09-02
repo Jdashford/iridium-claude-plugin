@@ -1,11 +1,12 @@
 import json
+import subprocess
+import sys
 from pathlib import Path
+from zipfile import ZipFile
 
 
 CLAUDE_PLUGIN_ROOT = Path("plugins/iridium-claude")
-CLAUDE_MCP_URL = (
-    "https://iridium-public-plugin-production.up.railway.app/mcp/v23"
-)
+CLAUDE_MCP_URL = "https://iridium-public-plugin-production.up.railway.app/mcp/v23"
 
 
 def plugin_text_assets(root: Path) -> str:
@@ -63,9 +64,7 @@ def test_plugin_uses_the_current_claude_endpoint_without_private_data():
 
 
 def test_skill_covers_natural_routing_recall_and_explicit_writes():
-    skill = (
-        CLAUDE_PLUGIN_ROOT / "skills/iridium-agent-memory/SKILL.md"
-    ).read_text()
+    skill = (CLAUDE_PLUGIN_ROOT / "skills/iridium-agent-memory/SKILL.md").read_text()
 
     assert "name: iridium-agent-memory" in skill
     assert "Claude Code" not in skill
@@ -74,7 +73,9 @@ def test_skill_covers_natural_routing_recall_and_explicit_writes():
     assert "Agent display names are chosen by users and may be anything" in skill
     assert "Never assume a built-in name" in skill
     assert "assignments in several Iridium accounts" in skill
-    assert "If the same display name exists in more than one authorised account" in skill
+    assert (
+        "If the same display name exists in more than one authorised account" in skill
+    )
     assert "ask_iridium_agent_by_name" in skill
     description = next(
         line.removeprefix("description: ")
@@ -126,12 +127,24 @@ def test_readme_documents_the_github_marketplace_install_path():
 
 def test_no_retired_plugin_or_skill_is_shipped():
     assert not any(
-        path.is_file()
-        for path in Path("plugins/iridium-reporting-claude").rglob("*")
+        path.is_file() for path in Path("plugins/iridium-reporting-claude").rglob("*")
     )
-    assert not (
-        CLAUDE_PLUGIN_ROOT / "skills/iridium-advisor/SKILL.md"
-    ).exists()
-    assert not (
-        CLAUDE_PLUGIN_ROOT / "skills/iridium-memory/SKILL.md"
-    ).exists()
+    assert not (CLAUDE_PLUGIN_ROOT / "skills/iridium-advisor/SKILL.md").exists()
+    assert not (CLAUDE_PLUGIN_ROOT / "skills/iridium-memory/SKILL.md").exists()
+
+
+def test_distribution_archive_has_a_valid_claude_plugin_root(tmp_path):
+    output = tmp_path / "iridium-claude.zip"
+
+    subprocess.run(
+        [sys.executable, "scripts/build_plugin_archive.py", str(output)],
+        check=True,
+    )
+
+    with ZipFile(output) as archive:
+        names = set(archive.namelist())
+        manifest = json.loads(archive.read("iridium-claude/.claude-plugin/plugin.json"))
+
+    assert "iridium-claude/.mcp.json" in names
+    assert "iridium-claude/skills/iridium-agent-memory/SKILL.md" in names
+    assert manifest["version"] == "2.0.6"

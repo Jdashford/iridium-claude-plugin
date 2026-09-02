@@ -1,0 +1,88 @@
+name: Validate and publish Claude plugin
+
+on:
+  pull_request:
+    paths:
+      - '.claude-plugin/**'
+      - '.github/workflows/publish-plugin.yml'
+      - 'plugins/iridium-claude/**'
+      - 'scripts/build_plugin_archive.py'
+      - 'tests/**'
+  push:
+    branches:
+      - main
+    paths:
+      - '.claude-plugin/**'
+      - '.github/workflows/publish-plugin.yml'
+      - 'plugins/iridium-claude/**'
+      - 'scripts/build_plugin_archive.py'
+      - 'tests/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: claude-plugin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test runner
+        run: python -m pip install pytest==9.0.3
+      - name: Validate marketplace and plugin
+        run: python -m pytest -q
+      - name: Build installable archive
+        run: python scripts/build_plugin_archive.py dist/iridium-claude.zip
+      - name: Verify install root
+        run: unzip -Z1 dist/iridium-claude.zip | grep -Fx 'iridium-claude/.claude-plugin/plugin.json'
+
+  publish:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build installable archive
+        run: python scripts/build_plugin_archive.py dist/iridium-claude.zip
+      - name: Publish immutable version and latest download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="$(python -c 'import json; print(json.load(open("plugins/iridium-claude/.claude-plugin/plugin.json"))["version"])')"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Plugin version must use semantic versioning"
+            exit 1
+          fi
+
+          tag="v${version}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            existing="$(mktemp -d)"
+            gh release download "$tag" --pattern iridium-claude.zip --dir "$existing"
+            if cmp "$existing/iridium-claude.zip" dist/iridium-claude.zip; then
+              exit 0
+            fi
+
+            echo "Release ${tag} already contains different plugin contents; bump the plugin version"
+            exit 1
+          fi
+
+          gh release create "$tag" dist/iridium-claude.zip \
+            --target "$GITHUB_SHA" \
+            --title "Iridium for Claude ${version}" \
+            --notes "Installable Iridium plugin for Claude ${version}."
