@@ -2,10 +2,7 @@
   "mcpServers": {
     "iridium": {
       "type": "http",
-      "url": "https://connect.iridiumai.co/mcp",
-      "httpUrl": "https://connect.iridiumai.co/mcp",
-      "startup_timeout_sec": 10,
-      "tool_timeout_sec": 60
+      "url": "https://iridium-public-plugin-production.up.railway.app/mcp/v23"
     }
   }
 }
