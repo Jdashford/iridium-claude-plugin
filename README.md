@@ -35,7 +35,7 @@ The plugin instructs Claude to retrieve broadly across authorised Memory and Kno
 - `.claude-plugin/marketplace.json` — the marketplace catalogue.
 - `plugins/iridium-claude/.claude-plugin/plugin.json` — the plugin manifest.
 - `plugins/iridium-claude/.mcp.json` — the authenticated Iridium MCP connection.
-- `plugins/iridium-claude/skills/iridium-memory/SKILL.md` — Claude-native routing, recall, continuation, presentation, and write guidance.
+- `plugins/iridium-claude/skills/iridium-agent-memory/SKILL.md` — Claude-native routing, recall, continuation, presentation, and write guidance.
 - `plugins/iridium-claude/resources/` — setup and privacy notes.
 
 ## Security
