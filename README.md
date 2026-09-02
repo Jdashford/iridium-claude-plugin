@@ -17,6 +17,18 @@ The plugin uses the current Claude MCP resource:
 
 `https://iridium-public-plugin-production.up.railway.app/mcp/v23`
 
+## Download the latest plugin
+
+The marketplace is the recommended installation path because Claude can keep
+the plugin synchronized from this repository. A correctly rooted installable
+ZIP is also published for every version:
+
+`https://github.com/Jdashford/iridium-claude-plugin/releases/latest/download/iridium-claude.zip`
+
+In Claude, open **Customize** → **Plugins**, choose **Add** → **Upload plugin**,
+and select the downloaded ZIP. The stable URL always resolves to the latest
+published plugin version.
+
 ## Use it naturally
 
 Iridium agent names are chosen by users and can be anything. Claude asks Iridium to resolve the name against the signed-in person's current assignments. The plugin is not tied to Iridium X or any other account: OAuth and the server-side assignment catalogue scope every request, including people who are authorised across multiple accounts.
