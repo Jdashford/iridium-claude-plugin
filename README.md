@@ -28,7 +28,7 @@ Examples:
 - "What does my Iridium agent know about our product?"
 - "Ask my personal agent to remember that the launch review is next Tuesday."
 
-Claude also supports an explicit skill command: `/iridium-agent-memory use [exact agent name]: [your request]`. The exact user-defined agent name routes directly; an unnamed request opens the picker once and keeps the selected agent for the conversation.
+Claude also supports explicit skill commands. `/iridium-agent-memory [your request]` opens the agent picker when no agent is already selected. `/iridium-agent-memory use [exact agent name]: [your request]` routes directly. The selected agent remains in use for the conversation until the user changes it.
 
 The plugin instructs Claude to retrieve broadly across authorised Memory and Knowledge, respect Iridium's continuation and sufficiency decisions, avoid exposing raw evidence packets, and save information only after an explicit request.
 
