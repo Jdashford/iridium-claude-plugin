@@ -29,7 +29,7 @@ def test_marketplace_exposes_one_current_iridium_plugin():
         "authorised Memory and Knowledge."
     )
     assert entries["iridium-claude"]["category"] == "productivity"
-    assert entries["iridium-claude"]["version"] == "2.0.5"
+    assert entries["iridium-claude"]["version"] == "2.0.6"
     assert entries["iridium-claude"]["homepage"] == "https://iridiumai.co"
 
 
@@ -41,7 +41,7 @@ def test_plugin_uses_the_current_claude_endpoint_without_private_data():
     all_text = plugin_text_assets(CLAUDE_PLUGIN_ROOT)
 
     assert manifest["name"] == "iridium-claude"
-    assert manifest["version"] == "2.0.5"
+    assert manifest["version"] == "2.0.6"
     assert manifest["repository"] == (
         "https://github.com/Jdashford/iridium-claude-plugin"
     )
@@ -86,6 +86,9 @@ def test_skill_covers_natural_routing_recall_and_explicit_writes():
     assert ">" not in description
     assert "Opaque IDs and marker-like strings" in skill
     assert "start_unnamed_iridium_task" in skill
+    assert "Route before writing any user-facing explanation" in skill
+    assert "Never ask the user to type an agent name" in skill
+    assert 'never say that a topic "isn\'t an agent name,"' in skill
     assert "continue_iridium_picker_task" in skill
     assert "The picker never generates a Claude message" in skill
     assert "/iridium-agent-memory use [exact agent name]: [request]" in skill
