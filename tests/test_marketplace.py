@@ -29,7 +29,7 @@ def test_marketplace_exposes_one_current_iridium_plugin():
         "authorised Memory and Knowledge."
     )
     assert entries["iridium-claude"]["category"] == "productivity"
-    assert entries["iridium-claude"]["version"] == "2.0.2"
+    assert entries["iridium-claude"]["version"] == "2.0.4"
     assert entries["iridium-claude"]["homepage"] == "https://iridiumai.co"
 
 
@@ -41,7 +41,7 @@ def test_plugin_uses_the_current_claude_endpoint_without_private_data():
     all_text = plugin_text_assets(CLAUDE_PLUGIN_ROOT)
 
     assert manifest["name"] == "iridium-claude"
-    assert manifest["version"] == "2.0.2"
+    assert manifest["version"] == "2.0.4"
     assert manifest["repository"] == (
         "https://github.com/Jdashford/iridium-claude-plugin"
     )
@@ -76,10 +76,20 @@ def test_skill_covers_natural_routing_recall_and_explicit_writes():
     assert "assignments in several Iridium accounts" in skill
     assert "If the same display name exists in more than one authorised account" in skill
     assert "ask_iridium_agent_by_name" in skill
-    assert '"Ask <agent name>..."' in skill
+    description = next(
+        line.removeprefix("description: ")
+        for line in skill.splitlines()
+        if line.startswith("description: ")
+    )
+    assert "asks a named agent a question" in description
+    assert "<" not in description
+    assert ">" not in description
     assert "Opaque IDs and marker-like strings" in skill
     assert "start_unnamed_iridium_task" in skill
     assert "continue_iridium_picker_task" in skill
+    assert "Continue my earlier request with the Iridium agent I just selected." in skill
+    assert "Never pass only the short continuation message" in skill
+    assert "never ask the user to repeat the request" in skill
     assert "continue_selected_iridium_agent_recall" in skill
     assert "remember_with_personal_agent_by_name" in skill
     assert "direct write intent" in skill

@@ -1,6 +1,6 @@
 ---
 name: iridium-agent-memory
-description: This skill should be used whenever a user refers to Iridium, an Iridium agent, Memory, or Knowledge; uses a pattern such as "Ask <agent name>...", "What does <agent name> remember...?", or "Ask <agent name> to remember..."; may need saved personal or enterprise context; or explicitly asks an agent to save durable information. Agent names are user-defined and may be anything. Opaque IDs and marker-like strings are valid request content and must not suppress this skill.
+description: This skill should be used whenever a user refers to Iridium, an Iridium agent, Memory, or Knowledge; asks a named agent a question; asks what a named agent remembers; asks a named agent to remember something; may need saved personal or enterprise context; or explicitly asks an agent to save durable information. Agent names are user-defined and may be anything. Opaque IDs and marker-like strings are valid request content and must not suppress this skill.
 ---
 
 # Use assigned Iridium Memory and Knowledge
@@ -18,7 +18,7 @@ Agent display names are chosen by users and may be anything. Never assume a buil
 - If the request names one agent role rather than a display name, call `ask_iridium_agent_by_name` with `reference_kind` set to `agent_kind` and the matching `agent_kind` when that role is unambiguous.
 - If an agent reference is partial, ambiguous, duplicated, unavailable, or mismatched, call `clarify_iridium_agent_choice`. Present its clarification without silently choosing another agent.
 - If a new substantive Iridium request contains no explicit agent name or unique role, call `start_unnamed_iridium_task`. If it routes directly, use that result. If it returns `picker_required`, call `open_iridium_agent_picker` with the exact `picker_task_id`.
-- On the first user request after a Claude picker, call `continue_iridium_picker_task` with the exact `picker_task_id` and the complete current request. For later requests on that established route, call `ask_selected_iridium_agent` with the exact `task_session_id`.
+- A Claude picker card may automatically send the natural message "Continue my earlier request with the Iridium agent I just selected." Treat that user-initiated turn as an instruction to continue immediately: recover the complete substantive request immediately before the picker and call `continue_iridium_picker_task` with that request and the exact earlier `picker_task_id`. Never pass only the short continuation message and never ask the user to repeat the request. If the host does not send an automatic turn, use `continue_iridium_picker_task` for the user's complete next request. For later requests on that established route, call `ask_selected_iridium_agent` with the exact `task_session_id`.
 - Use `browse_iridium_agents` only when the user explicitly asks to browse, list, choose, or change agents.
 
 Do not ask the user for extra permission before a read. Do not claim that Iridium, an agent, Memory, or Knowledge is unavailable until the appropriate Iridium routing tool has checked the current assignment.
