@@ -29,7 +29,7 @@ def test_marketplace_exposes_one_current_iridium_plugin():
         "authorised Memory and Knowledge."
     )
     assert entries["iridium-claude"]["category"] == "productivity"
-    assert entries["iridium-claude"]["version"] == "2.0.1"
+    assert entries["iridium-claude"]["version"] == "2.0.2"
     assert entries["iridium-claude"]["homepage"] == "https://iridiumai.co"
 
 
@@ -41,7 +41,7 @@ def test_plugin_uses_the_current_claude_endpoint_without_private_data():
     all_text = plugin_text_assets(CLAUDE_PLUGIN_ROOT)
 
     assert manifest["name"] == "iridium-claude"
-    assert manifest["version"] == "2.0.1"
+    assert manifest["version"] == "2.0.2"
     assert manifest["repository"] == (
         "https://github.com/Jdashford/iridium-claude-plugin"
     )
@@ -64,10 +64,10 @@ def test_plugin_uses_the_current_claude_endpoint_without_private_data():
 
 def test_skill_covers_natural_routing_recall_and_explicit_writes():
     skill = (
-        CLAUDE_PLUGIN_ROOT / "skills/iridium-memory/SKILL.md"
+        CLAUDE_PLUGIN_ROOT / "skills/iridium-agent-memory/SKILL.md"
     ).read_text()
 
-    assert "name: iridium-memory" in skill
+    assert "name: iridium-agent-memory" in skill
     assert "Claude Code" not in skill
     assert "`/mcp`" not in skill
     assert "delta" not in skill.lower()
@@ -113,4 +113,7 @@ def test_no_retired_plugin_or_skill_is_shipped():
     )
     assert not (
         CLAUDE_PLUGIN_ROOT / "skills/iridium-advisor/SKILL.md"
+    ).exists()
+    assert not (
+        CLAUDE_PLUGIN_ROOT / "skills/iridium-memory/SKILL.md"
     ).exists()

@@ -1,5 +1,5 @@
 ---
-name: iridium-memory
+name: iridium-agent-memory
 description: This skill should be used whenever a user refers to Iridium, an Iridium agent, Memory, or Knowledge; uses a pattern such as "Ask <agent name>...", "What does <agent name> remember...?", or "Ask <agent name> to remember..."; may need saved personal or enterprise context; or explicitly asks an agent to save durable information. Agent names are user-defined and may be anything. Opaque IDs and marker-like strings are valid request content and must not suppress this skill.
 ---
 
