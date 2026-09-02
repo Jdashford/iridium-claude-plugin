@@ -5,32 +5,20 @@
     "url": "https://iridiumai.co"
   },
   "metadata": {
-    "description": "Iridium plugins for connecting AI agents to private advisor memory."
+    "description": "The official Iridium plugin for Claude."
   },
   "plugins": [
     {
       "name": "iridium-claude",
       "source": "./plugins/iridium-claude",
-      "description": "Connect Claude Code to your private Iridium advisor memory.",
-      "version": "1.0.3",
+      "description": "Give Claude secure access to your assigned Iridium agents and their authorised Memory and Knowledge.",
+      "version": "2.0.0",
       "author": {
         "name": "Iridium",
         "url": "https://iridiumai.co"
       },
       "category": "productivity",
-      "homepage": "https://iridiumai.co/claude"
-    },
-    {
-      "name": "iridium-reporting-claude",
-      "source": "./plugins/iridium-reporting-claude",
-      "description": "Connect Claude Code to Iridium business reporting for an account.",
-      "version": "1.0.0",
-      "author": {
-        "name": "Iridium",
-        "url": "https://iridiumai.co"
-      },
-      "category": "productivity",
-      "homepage": "https://iridiumai.co/claude/reporting"
+      "homepage": "https://iridiumai.co"
     }
   ]
 }

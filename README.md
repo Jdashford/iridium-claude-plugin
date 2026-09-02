@@ -1,32 +1,45 @@
 # Iridium for Claude
 
-This repository contains the Iridium plugin marketplace for Claude Code.
+This is the public Claude plugin marketplace for Iridium. The **Iridium** plugin gives Claude secure access to the signed-in person's assigned Iridium agents and their authorised Memory and Knowledge.
 
-The plugins connect Claude Code to the Iridium gateway at `https://connect.iridiumai.co/mcp`. They do not contain customer Railway URLs, setup codes, OAuth tokens, private memories, uploaded documents, advisor prompts, or client names.
+The plugin contains presentation and routing guidance only. It does not contain customer memories, Knowledge documents, prompts, credentials, OAuth tokens, account names, or fixed agent names.
 
-## Install
+## Install in Claude
 
-Add this GitHub repository as a Claude plugin marketplace, then install the plugin for your setup:
+1. Open **Customize** → **Plugins** in Claude.
+2. Choose **Add** → **Add marketplace**.
+3. Enter `Jdashford/iridium-claude-plugin` or this repository URL and choose **Sync**.
+4. Install **Iridium** from the marketplace.
+5. Open its connector, choose **Connect**, and sign in with your Iridium account.
+6. Start a new Claude conversation after the Iridium tools have loaded.
 
-- `iridium-claude` for private advisor memory.
-- `iridium-reporting-claude` for account-scoped business reporting.
+The plugin uses the current Claude MCP resource:
 
-After installation, Claude Code asks you to connect Iridium. Open the private setup page from your advisor, reveal the one-time setup code, and paste that code only on the Iridium sign-in screen.
+`https://iridium-public-plugin-production.up.railway.app/mcp/v23`
 
-If Claude Code shows the Iridium server as not authenticated, open `/mcp`, select `iridium`, and choose Authenticate. After authentication, start a new Claude Code session or run `/reload-plugins`.
+## Use it naturally
 
-## Contents
+Iridium agent names are chosen by users and can be anything. Claude asks Iridium to resolve the name against the signed-in person's current assignments. The plugin is not tied to Iridium X or any other account: OAuth and the server-side assignment catalogue scope every request, including people who are authorised across multiple accounts.
 
-- `.claude-plugin/marketplace.json`: Claude plugin marketplace entries.
-- `plugins/iridium-claude/.claude-plugin/plugin.json`: Claude plugin manifest.
-- `plugins/iridium-claude/.mcp.json`: gateway MCP server configuration.
-- `plugins/iridium-claude/skills/iridium-advisor/SKILL.md`: Claude Code skill guidance for advisor usage.
-- `plugins/iridium-claude/resources/`: setup and privacy notes.
-- `plugins/iridium-reporting-claude/.claude-plugin/plugin.json`: Claude reporting plugin manifest.
-- `plugins/iridium-reporting-claude/.mcp.json`: gateway MCP server configuration.
-- `plugins/iridium-reporting-claude/skills/iridium-reporting/SKILL.md`: Claude Code skill guidance for reporting usage.
-- `plugins/iridium-reporting-claude/resources/`: setup and privacy notes.
+Examples:
+
+- "Ask my personal agent what it remembers about my role."
+- "Ask Project Desk what we agreed on the last call."
+- "What does my Iridium agent know about our product?"
+- "Ask my personal agent to remember that the launch review is next Tuesday."
+
+The plugin instructs Claude to retrieve broadly across authorised Memory and Knowledge, respect Iridium's continuation and sufficiency decisions, avoid exposing raw evidence packets, and save information only after an explicit request.
+
+## Repository contents
+
+- `.claude-plugin/marketplace.json` — the marketplace catalogue.
+- `plugins/iridium-claude/.claude-plugin/plugin.json` — the plugin manifest.
+- `plugins/iridium-claude/.mcp.json` — the authenticated Iridium MCP connection.
+- `plugins/iridium-claude/skills/iridium-memory/SKILL.md` — Claude-native routing, recall, continuation, presentation, and write guidance.
+- `plugins/iridium-claude/resources/` — setup and privacy notes.
 
 ## Security
 
-The one-time setup code binds a Claude OAuth connection to the correct account runtime at the gateway. Runtime deployments remain separate and are reached only through authenticated, short-lived gateway service tokens.
+The public repository contains no secrets. Access is enforced by Iridium OAuth and the signed-in person's assignment catalogue. Read tools are non-mutating; durable writes require explicit user intent and an accepted Iridium receipt.
+
+To remove access, disconnect Iridium in Claude or from the Iridium account connection page.

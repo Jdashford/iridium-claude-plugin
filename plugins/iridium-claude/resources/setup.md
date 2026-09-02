@@ -1,18 +1,19 @@
-# Iridium for Claude
+# Install the Iridium plugin in Claude
 
-Install this plugin from the Iridium Claude marketplace.
+1. In Claude, open **Customize**, then **Plugins**.
+2. Choose **Add** and **Add marketplace**.
+3. Enter `Jdashford/iridium-claude-plugin` and sync the marketplace.
+4. Install **Iridium**.
+5. Open the Iridium connector and choose **Connect**.
+6. Sign in with the Iridium account that owns your agent assignments and approve access.
+7. Start a new Claude conversation after the tools finish loading.
 
-The plugin connects Claude Code to Iridium.
+Try a natural request such as:
 
-1. Install **Iridium for Claude** from the marketplace.
-2. In Claude Code, open `/mcp`.
-3. Select `iridium`.
-4. Choose **Authenticate**.
-5. Claude Code will open the Iridium sign-in page in your browser.
-6. Keep that sign-in page open, return to your private Iridium setup page, and reveal the one-time setup code.
-7. Paste the setup code only into the Iridium sign-in page. Do not paste it into Claude Code chat.
-8. After authentication, start a new Claude Code session or run `/reload-plugins`.
+- "Ask my assigned personal agent what it remembers about my role."
+- "Ask Project Desk what our latest agreed actions were."
+- "What does my Iridium agent know about our product?"
 
-Ask: "Use my Iridium advisor to help me plan the next step."
+Agent names are set by each user. Use the exact name shown in the person's Iridium account; the plugin does not require a fixed agent name.
 
-If Claude Code still shows Iridium as not authenticated, open `/mcp`, select `iridium`, and choose **Authenticate** again.
+If Claude asks to connect again, open the Iridium plugin's connector settings and complete Iridium sign-in there. Never paste a password or access token into chat.
