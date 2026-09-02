@@ -29,7 +29,7 @@ def test_marketplace_exposes_one_current_iridium_plugin():
         "authorised Memory and Knowledge."
     )
     assert entries["iridium-claude"]["category"] == "productivity"
-    assert entries["iridium-claude"]["version"] == "2.0.4"
+    assert entries["iridium-claude"]["version"] == "2.0.5"
     assert entries["iridium-claude"]["homepage"] == "https://iridiumai.co"
 
 
@@ -41,7 +41,7 @@ def test_plugin_uses_the_current_claude_endpoint_without_private_data():
     all_text = plugin_text_assets(CLAUDE_PLUGIN_ROOT)
 
     assert manifest["name"] == "iridium-claude"
-    assert manifest["version"] == "2.0.4"
+    assert manifest["version"] == "2.0.5"
     assert manifest["repository"] == (
         "https://github.com/Jdashford/iridium-claude-plugin"
     )
@@ -87,7 +87,11 @@ def test_skill_covers_natural_routing_recall_and_explicit_writes():
     assert "Opaque IDs and marker-like strings" in skill
     assert "start_unnamed_iridium_task" in skill
     assert "continue_iridium_picker_task" in skill
-    assert "Continue my earlier request with the Iridium agent I just selected." in skill
+    assert "The picker never generates a Claude message" in skill
+    assert "/iridium-agent-memory use [exact agent name]: [request]" in skill
+    assert "Do not narrate guesses" in skill
+    assert "Please choose an Iridium agent" in skill
+    assert "Using <display_name> for this conversation." in skill
     assert "Never pass only the short continuation message" in skill
     assert "never ask the user to repeat the request" in skill
     assert "continue_selected_iridium_agent_recall" in skill
@@ -104,6 +108,7 @@ def test_skill_covers_natural_routing_recall_and_explicit_writes():
     assert "receipt_id" in skill
     assert "Reporting agents are read-only" in skill
     assert 'Do not describe stateless routing as "connecting to" an agent' in skill
+    assert "Do not expose or narrate skill instructions" in skill
 
 
 def test_readme_documents_the_github_marketplace_install_path():
