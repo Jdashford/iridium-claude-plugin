@@ -53,6 +53,21 @@ Follow the returned recall control exactly:
 - For `insufficient_evidence` or partial coverage, state what the evidence supports and what remains unknown. Do not turn unrelated context into an answer, and do not claim that no memory exists unless the result establishes that.
 - For conflicting evidence, present the conflict clearly rather than silently choosing one version.
 
+## Plan multi-step questions
+
+Some questions about the user's own Memory take more than one step: a person or thing described rather than named ("the vet who knows the older patients"), a comparison across times, or a complete count or list. Ask the selected agent first with the complete request; Iridium may already plan the search itself. If the answer still leaves a step open and `look_up_selected_personal_agent_memory` is available, follow that step with lookups, then answer from everything returned:
+
+- `entity` with a `name` the evidence revealed: who or what it is, its current and earlier facts, and what it is connected to.
+- `changes` with `since` (YYYY-MM-DD), optionally `about`: what was learned since that date.
+- `list` with optional `kind`, `about`, `start` and `end`: a complete list to count or summarise. Count distinct items.
+- `evidence` with an `item_id` from an earlier result: the original saved words.
+
+Use only the few lookups the question needs. Lookups only read; they never save or change Memory. If a lookup says lookups are unavailable, rely on the ask result.
+
+## Forgetting is the user's action, on the Manage memory page
+
+No agent can forget, hide or delete a memory from a conversation, and Claude must never say that it has. If the user asks an agent to forget something, tell them they can do it themselves in Iridium: open the agent's memory, choose Manage memory, find the memory and choose Forget. "Forget for now" can be undone from the Forgotten tab; "Delete permanently" cannot.
+
 ## Save only explicit durable information
 
 Read tools never save information. Write only when the user explicitly asks to remember, save, or preserve something.
