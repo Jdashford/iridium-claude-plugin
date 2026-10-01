@@ -30,7 +30,7 @@ def test_marketplace_exposes_one_current_iridium_plugin():
         "authorised Memory and Knowledge."
     )
     assert entries["iridium-claude"]["category"] == "productivity"
-    assert entries["iridium-claude"]["version"] == "2.0.6"
+    assert entries["iridium-claude"]["version"] == "2.0.7"
     assert entries["iridium-claude"]["homepage"] == "https://iridiumai.co"
 
 
@@ -42,7 +42,7 @@ def test_plugin_uses_the_current_claude_endpoint_without_private_data():
     all_text = plugin_text_assets(CLAUDE_PLUGIN_ROOT)
 
     assert manifest["name"] == "iridium-claude"
-    assert manifest["version"] == "2.0.6"
+    assert manifest["version"] == "2.0.7"
     assert manifest["repository"] == (
         "https://github.com/Jdashford/iridium-claude-plugin"
     )
@@ -113,6 +113,13 @@ def test_skill_covers_natural_routing_recall_and_explicit_writes():
     assert "Reporting agents are read-only" in skill
     assert 'Do not describe stateless routing as "connecting to" an agent' in skill
     assert "Do not expose or narrate skill instructions" in skill
+    assert "look_up_selected_personal_agent_memory" in skill
+    assert "Ask the selected agent first with the complete request" in skill
+    assert "Count distinct items" in skill
+    assert "they never save or change Memory" in skill
+    assert "Claude must never say that it has" in skill
+    assert "choose Manage memory" in skill
+    assert '"Delete permanently" cannot' in skill
 
 
 def test_readme_documents_the_github_marketplace_install_path():
@@ -147,4 +154,4 @@ def test_distribution_archive_has_a_valid_claude_plugin_root(tmp_path):
 
     assert "iridium-claude/.mcp.json" in names
     assert "iridium-claude/skills/iridium-agent-memory/SKILL.md" in names
-    assert manifest["version"] == "2.0.6"
+    assert manifest["version"] == "2.0.7"
