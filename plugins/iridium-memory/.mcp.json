@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "iridium": {
+      "type": "http",
+      "url": "https://mcp.iridiumai.co/mcp/v26"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Iridium for Claude
 
-This is the public Claude plugin marketplace for Iridium. The **Iridium** plugin gives Claude secure access to the signed-in person's assigned Iridium agents and their authorised Memory and Knowledge.
+This is the public Claude plugin marketplace for Iridium. The **Iridium Memory** plugin gives Claude secure access to the signed-in person's assigned Iridium agents and their authorised Memory and Knowledge.
 
 The plugin contains presentation and routing guidance only. It does not contain customer memories, Knowledge documents, prompts, credentials, OAuth tokens, account names, or fixed agent names.
 
@@ -9,25 +9,37 @@ The plugin contains presentation and routing guidance only. It does not contain 
 1. Open **Customize** → **Plugins** in Claude.
 2. Choose **Add** → **Add marketplace**.
 3. Enter `Jdashford/iridium-claude-plugin` or this repository URL and choose **Sync**.
-4. Install **Iridium** from the marketplace.
+4. Install **Iridium Memory** from the marketplace.
 5. Open its connector, choose **Connect**, and sign in with your Iridium account.
 6. Start a new Claude conversation after the Iridium tools have loaded.
 
-The plugin uses the current Claude MCP resource:
+Iridium Memory uses the Claude MCP resource:
+
+`https://mcp.iridiumai.co/mcp/v26`
+
+### Already using the previous Iridium plugin?
+
+The previous **Iridium** plugin (`iridium-claude`) stays in this marketplace and keeps working against its existing resource:
 
 `https://iridium-public-plugin-production.up.railway.app/mcp/v23`
+
+To move to Iridium Memory, install it, connect it once, and then remove the previous plugin so Claude shows one set of Iridium tools.
 
 ## Download the latest plugin
 
 The marketplace is the recommended installation path because Claude can keep
-the plugin synchronized from this repository. A correctly rooted installable
-ZIP is also published for every version:
+the plugin synchronized from this repository. Correctly rooted installable
+ZIPs are also published with every release:
+
+`https://github.com/Jdashford/iridium-claude-plugin/releases/latest/download/iridium-memory.zip`
+
+The previous plugin remains available at:
 
 `https://github.com/Jdashford/iridium-claude-plugin/releases/latest/download/iridium-claude.zip`
 
 In Claude, open **Customize** → **Plugins**, choose **Add** → **Upload plugin**,
-and select the downloaded ZIP. The stable URL always resolves to the latest
-published plugin version.
+and select the downloaded ZIP. The stable URLs always resolve to the latest
+published plugin versions.
 
 ## Use it naturally
 
@@ -47,7 +59,8 @@ The plugin instructs Claude to retrieve broadly across authorised Memory and Kno
 ## Repository contents
 
 - `.claude-plugin/marketplace.json` — the marketplace catalogue.
-- `plugins/iridium-claude/.claude-plugin/plugin.json` — the plugin manifest.
+- `plugins/iridium-memory/` — the Iridium Memory plugin (manifest, MCP connection, skill, README).
+- `plugins/iridium-claude/.claude-plugin/plugin.json` — the previous plugin's manifest.
 - `plugins/iridium-claude/.mcp.json` — the authenticated Iridium MCP connection.
 - `plugins/iridium-claude/skills/iridium-agent-memory/SKILL.md` — Claude-native routing, recall, continuation, presentation, and write guidance.
 - `plugins/iridium-claude/resources/` — setup and privacy notes.
