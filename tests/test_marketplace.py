@@ -17,18 +17,20 @@ def plugin_text_assets(root: Path) -> str:
     )
 
 
-def test_marketplace_exposes_one_current_iridium_plugin():
+def test_marketplace_lists_iridium_memory_and_keeps_the_previous_plugin():
     marketplace = json.loads(Path(".claude-plugin/marketplace.json").read_text())
 
     assert marketplace["name"] == "iridium-claude"
     assert marketplace["owner"]["name"] == "Iridium"
     entries = {entry["name"]: entry for entry in marketplace["plugins"]}
-    assert set(entries) == {"iridium-claude"}
+    assert set(entries) == {"iridium-memory", "iridium-claude"}
+    assert marketplace["plugins"][0]["name"] == "iridium-memory"
+    assert entries["iridium-memory"]["source"] == "./plugins/iridium-memory"
+    assert entries["iridium-memory"]["version"] == json.loads(
+        (Path("plugins/iridium-memory") / ".claude-plugin/plugin.json").read_text()
+    )["version"]
     assert entries["iridium-claude"]["source"] == "./plugins/iridium-claude"
-    assert entries["iridium-claude"]["description"] == (
-        "Give Claude secure access to your assigned Iridium agents and their "
-        "authorised Memory and Knowledge."
-    )
+    assert "new installs use Iridium Memory" in entries["iridium-claude"]["description"]
     assert entries["iridium-claude"]["category"] == "productivity"
     assert entries["iridium-claude"]["version"] == "2.0.7"
     assert entries["iridium-claude"]["homepage"] == "https://iridiumai.co"
@@ -234,3 +236,22 @@ def test_iridium_memory_skill_carries_the_guidance_the_directory_server_omits():
     assert "payment card data" in skill
     assert "Using <display_name> for this conversation." in skill
     assert "delta" not in skill.lower()
+
+
+def test_distribution_archive_for_iridium_memory_has_a_valid_root(tmp_path):
+    output = tmp_path / "iridium-memory.zip"
+
+    subprocess.run(
+        [sys.executable, "scripts/build_plugin_archive.py", str(output), "iridium-memory"],
+        check=True,
+    )
+
+    with ZipFile(output) as archive:
+        names = set(archive.namelist())
+        manifest = json.loads(archive.read("iridium-memory/.claude-plugin/plugin.json"))
+        mcp = json.loads(archive.read("iridium-memory/.mcp.json"))
+
+    assert "iridium-memory/README.md" in names
+    assert "iridium-memory/skills/iridium-agent-memory/SKILL.md" in names
+    assert manifest["name"] == "iridium-memory"
+    assert mcp["mcpServers"]["iridium"]["url"] == MEMORY_MCP_URL

@@ -9,9 +9,21 @@
   },
   "plugins": [
     {
+      "name": "iridium-memory",
+      "source": "./plugins/iridium-memory",
+      "description": "Ask your assigned Iridium agents questions grounded in their Memory and Knowledge, and save to Memory when you ask.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Iridium",
+        "url": "https://iridiumai.co"
+      },
+      "category": "productivity",
+      "homepage": "https://iridiumai.co"
+    },
+    {
       "name": "iridium-claude",
       "source": "./plugins/iridium-claude",
-      "description": "Give Claude secure access to your assigned Iridium agents and their authorised Memory and Knowledge.",
+      "description": "Previous Iridium plugin. Existing installs keep working; new installs use Iridium Memory.",
       "version": "2.0.7",
       "author": {
         "name": "Iridium",
