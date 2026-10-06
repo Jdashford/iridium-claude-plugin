@@ -22,7 +22,7 @@ You need an Iridium account with at least one assigned agent. Your account admin
 
 ## What this plugin sends, and where
 
-- **One remote server.** The plugin connects Claude to Iridium's MCP server at `https://mcp.iridiumai.co/mcp/v23`, operated by Iridium. It adds no other servers.
+- **One remote server.** The plugin connects Claude to Iridium's MCP server at `https://mcp.iridiumai.co/mcp/v26`, operated by Iridium. It adds no other servers.
 - **Sign-in.** You sign in to Iridium through OAuth with PKCE. Claude receives an access token for your Iridium account; it never sees your password or authenticator code.
 - **Your requests.** When you ask an agent something, Claude sends your request and the agent you chose to Iridium, and Iridium returns the relevant Memory and Knowledge that agent is authorised to share with you.
 - **Saves.** When you explicitly ask an agent to remember something, Claude sends the content you asked to save. Nothing is saved otherwise.

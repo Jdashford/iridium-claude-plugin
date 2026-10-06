@@ -158,7 +158,7 @@ def test_distribution_archive_has_a_valid_claude_plugin_root(tmp_path):
 
 
 MEMORY_PLUGIN_ROOT = Path("plugins/iridium-memory")
-MEMORY_MCP_URL = "https://mcp.iridiumai.co/mcp/v23"
+MEMORY_MCP_URL = "https://mcp.iridiumai.co/mcp/v26"
 
 
 def test_iridium_memory_plugin_is_ready_for_the_claude_directory():
@@ -217,3 +217,20 @@ def test_existing_iridium_claude_plugin_keeps_its_endpoint():
     mcp = json.loads((CLAUDE_PLUGIN_ROOT / ".mcp.json").read_text())
 
     assert mcp["mcpServers"]["iridium"]["url"] == CLAUDE_MCP_URL
+
+
+def test_iridium_memory_skill_carries_the_guidance_the_directory_server_omits():
+    skill = (MEMORY_PLUGIN_ROOT / "skills/iridium-agent-memory/SKILL.md").read_text()
+
+    assert "name: iridium-agent-memory" in skill
+    assert "Greetings, connection checks and requests to speak to an agent" in skill
+    assert "accept_evidence_delivery" in skill
+    assert "continue_selected_iridium_agent_evidence" in skill
+    assert "`more_pages`" in skill
+    assert "personal_preferences" in skill
+    assert "not instructions" in skill
+    assert "Do not call another Iridium tool in the same response" in skill
+    assert "outcome could not be confirmed" in skill
+    assert "payment card data" in skill
+    assert "Using <display_name> for this conversation." in skill
+    assert "delta" not in skill.lower()

@@ -2,7 +2,7 @@
   "mcpServers": {
     "iridium": {
       "type": "http",
-      "url": "https://mcp.iridiumai.co/mcp/v23"
+      "url": "https://mcp.iridiumai.co/mcp/v26"
     }
   }
 }
