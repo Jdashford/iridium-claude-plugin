@@ -6,6 +6,7 @@ on:
       - '.claude-plugin/**'
       - '.github/workflows/publish-plugin.yml'
       - 'plugins/iridium-claude/**'
+      - 'plugins/iridium-memory/**'
       - 'scripts/build_plugin_archive.py'
       - 'tests/**'
   push:
@@ -15,6 +16,7 @@ on:
       - '.claude-plugin/**'
       - '.github/workflows/publish-plugin.yml'
       - 'plugins/iridium-claude/**'
+      - 'plugins/iridium-memory/**'
       - 'scripts/build_plugin_archive.py'
       - 'tests/**'
   workflow_dispatch:

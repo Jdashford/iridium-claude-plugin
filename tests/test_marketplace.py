@@ -155,3 +155,65 @@ def test_distribution_archive_has_a_valid_claude_plugin_root(tmp_path):
     assert "iridium-claude/.mcp.json" in names
     assert "iridium-claude/skills/iridium-agent-memory/SKILL.md" in names
     assert manifest["version"] == "2.0.7"
+
+
+MEMORY_PLUGIN_ROOT = Path("plugins/iridium-memory")
+MEMORY_MCP_URL = "https://mcp.iridiumai.co/mcp/v23"
+
+
+def test_iridium_memory_plugin_is_ready_for_the_claude_directory():
+    manifest = json.loads(
+        (MEMORY_PLUGIN_ROOT / ".claude-plugin/plugin.json").read_text()
+    )
+    mcp = json.loads((MEMORY_PLUGIN_ROOT / ".mcp.json").read_text())
+
+    assert manifest["name"] == "iridium-memory"
+    assert manifest["displayName"] == "Iridium Memory"
+    assert manifest["version"]
+    assert manifest["license"]
+    assert manifest["author"]["name"] == "Iridium"
+    assert manifest["homepage"] == "https://iridiumai.co"
+    assert "claude" not in manifest["name"]
+    assert mcp == {
+        "mcpServers": {
+            "iridium": {
+                "type": "http",
+                "url": MEMORY_MCP_URL,
+            }
+        }
+    }
+
+
+def test_iridium_memory_readme_discloses_what_the_plugin_sends():
+    readme = (MEMORY_PLUGIN_ROOT / "README.md").read_text()
+    prose = "\n".join(
+        part for index, part in enumerate(readme.split("```")) if index % 2 == 0
+    )
+
+    assert len(prose.split()) >= 40
+    assert MEMORY_MCP_URL in readme
+    assert "https://iridiumai.co/privacy-policy" in readme
+    assert "https://iridiumai.co/contact" in readme
+    assert "Nothing is saved otherwise" in readme
+    assert "never sees your password" in readme
+
+
+def test_iridium_memory_plugin_files_pass_directory_file_rules():
+    files = [path for path in MEMORY_PLUGIN_ROOT.rglob("*") if path.is_file()]
+    all_text = "\n".join(path.read_text() for path in files)
+
+    assert len(files) <= 512
+    for path in files:
+        assert path.name not in {".DS_Store", "Thumbs.db", "desktop.ini"}
+        assert path.suffix in {".json", ".md"}
+        assert path.stat().st_size < 256 * 1024
+    assert "client_secret" not in all_text
+    assert "railway.app" not in all_text
+    assert "delta" not in all_text.lower()
+    assert (MEMORY_PLUGIN_ROOT / "skills/iridium-agent-memory/SKILL.md").exists()
+
+
+def test_existing_iridium_claude_plugin_keeps_its_endpoint():
+    mcp = json.loads((CLAUDE_PLUGIN_ROOT / ".mcp.json").read_text())
+
+    assert mcp["mcpServers"]["iridium"]["url"] == CLAUDE_MCP_URL
