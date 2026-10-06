@@ -1,6 +1,8 @@
 # Iridium for Claude
 
-This is the public Claude plugin marketplace for Iridium. The **Iridium Memory** plugin gives Claude secure access to the signed-in person's assigned Iridium agents and their authorised Memory and Knowledge.
+This repository holds the Iridium plugins for Claude. The **Iridium Memory** plugin gives Claude secure access to the signed-in person's assigned Iridium agents and their authorised Memory and Knowledge.
+
+**New to Iridium?** Add the [Iridium marketplace](https://github.com/Jdashford/iridium-marketplace) (`Jdashford/iridium-marketplace`), which lists only Iridium Memory. This repository's own marketplace stays as it is for people who installed the previous plugin from it.
 
 The plugin contains presentation and routing guidance only. It does not contain customer memories, Knowledge documents, prompts, credentials, OAuth tokens, account names, or fixed agent names.
 
@@ -8,7 +10,7 @@ The plugin contains presentation and routing guidance only. It does not contain 
 
 1. Open **Customize** → **Plugins** in Claude.
 2. Choose **Add** → **Add marketplace**.
-3. Enter `Jdashford/iridium-claude-plugin` or this repository URL and choose **Sync**.
+3. Enter `Jdashford/iridium-marketplace` and choose **Sync**.
 4. Install **Iridium Memory** from the marketplace.
 5. Open its connector, choose **Connect**, and sign in with your Iridium account.
 6. Start a new Claude conversation after the Iridium tools have loaded.
