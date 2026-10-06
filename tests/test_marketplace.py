@@ -176,6 +176,15 @@ def test_iridium_memory_plugin_is_ready_for_the_claude_directory():
     assert manifest["author"]["name"] == "Iridium"
     assert manifest["homepage"] == "https://iridiumai.co"
     assert "claude" not in manifest["name"]
+    # Directory listing fields: the Ir logo on white and the public pages.
+    assert manifest["icon"] == "./assets/iridium-icon.png"
+    assert (MEMORY_PLUGIN_ROOT / "assets/iridium-icon.png").read_bytes()[:8] == (
+        b"\x89PNG\r\n\x1a\n"
+    )
+    assert manifest["privacyPolicyUrl"] == "https://iridiumai.co/privacy-policy"
+    assert manifest["termsOfServiceUrl"] == "https://iridiumai.co/terms-of-service"
+    assert manifest["supportUrl"] == "https://iridiumai.co/contact"
+    assert manifest["documentationUrl"].endswith("/plugins/iridium-memory/README.md")
     assert mcp == {
         "mcpServers": {
             "iridium": {
@@ -202,13 +211,18 @@ def test_iridium_memory_readme_discloses_what_the_plugin_sends():
 
 def test_iridium_memory_plugin_files_pass_directory_file_rules():
     files = [path for path in MEMORY_PLUGIN_ROOT.rglob("*") if path.is_file()]
-    all_text = "\n".join(path.read_text() for path in files)
+    # The only non-text file is the listing icon the manifest declares.
+    icon = MEMORY_PLUGIN_ROOT / "assets/iridium-icon.png"
+    text_files = [path for path in files if path != icon]
+    all_text = "\n".join(path.read_text() for path in text_files)
 
     assert len(files) <= 512
+    assert icon in files
     for path in files:
         assert path.name not in {".DS_Store", "Thumbs.db", "desktop.ini"}
-        assert path.suffix in {".json", ".md"}
         assert path.stat().st_size < 256 * 1024
+    for path in text_files:
+        assert path.suffix in {".json", ".md"}
     assert "client_secret" not in all_text
     assert "railway.app" not in all_text
     assert "delta" not in all_text.lower()

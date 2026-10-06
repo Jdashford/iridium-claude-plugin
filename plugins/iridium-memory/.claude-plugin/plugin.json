@@ -1,7 +1,7 @@
 {
   "name": "iridium-memory",
   "displayName": "Iridium Memory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ask your assigned Iridium agents questions grounded in their Memory and Knowledge, and save to Memory when you ask.",
   "author": {
     "name": "Iridium",
@@ -10,6 +10,11 @@
   "homepage": "https://iridiumai.co",
   "repository": "https://github.com/Jdashford/iridium-claude-plugin",
   "license": "Proprietary",
+  "icon": "./assets/iridium-icon.png",
+  "documentationUrl": "https://github.com/Jdashford/iridium-claude-plugin/blob/main/plugins/iridium-memory/README.md",
+  "supportUrl": "https://iridiumai.co/contact",
+  "privacyPolicyUrl": "https://iridiumai.co/privacy-policy",
+  "termsOfServiceUrl": "https://iridiumai.co/terms-of-service",
   "keywords": ["memory", "knowledge", "agents", "enterprise", "mcp"],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json"
