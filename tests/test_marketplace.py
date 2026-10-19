@@ -316,7 +316,7 @@ def test_iridium_memory_readme_discloses_connected_apps():
     assert "approve it with your authenticator code" in readme
     assert "Agents cannot delete or cancel" in readme
     assert "only when you ask, and you can remove it on the agent's Memories page" in readme
-    assert "Results from Slack's AI search are never kept" in readme
+    assert "Results from Slack's AI search (Real-Time Search) are never kept" in readme
     assert "Iridium does not keep copies of what it reads from your apps" in readme
 
 
