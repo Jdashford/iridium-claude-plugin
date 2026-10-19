@@ -9,6 +9,8 @@ Use the authenticated Iridium tools to ground answers in the Memory and Knowledg
 
 When the user asks or tells a named agent something, always route the request through Iridium before claiming that the agent or its tools are unavailable. This still applies when the agent name is unfamiliar or the request contains an opaque identifier, acceptance marker, ticket number, code, or other machine-like text.
 
+When `find_iridium_agent_app_actions` and `read_with_iridium_agent_app` are available, a request about the person's own email, calendar, Drive files or Slack messages is about live data in the apps connected to their personal agent, even when it names neither Iridium nor the app. Examples: "pull my last five messages from [colleague]", "what's on my calendar tomorrow", "find the budget doc". Read that data with the app tools. The agent's Memory holds only what was saved, so asking the agent alone does not answer it. If the person names a different connector for that app, use the one they named.
+
 ## Route the request
 
 Agent display names are chosen by users and may be anything. Never assume a built-in name, reject an unfamiliar name from Claude's prior context, or substitute a different agent. The signed-in person may have assignments in several Iridium accounts; Iridium, not the plugin, enforces the authorised account and assignment scope.
