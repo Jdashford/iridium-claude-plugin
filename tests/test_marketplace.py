@@ -252,6 +252,17 @@ def test_iridium_memory_skill_carries_the_guidance_the_directory_server_omits():
     assert "delta" not in skill.lower()
 
 
+def test_iridium_memory_skill_reads_live_app_data_with_the_app_tools():
+    skill = (MEMORY_PLUGIN_ROOT / "skills/iridium-agent-memory/SKILL.md").read_text()
+
+    assert (
+        "a request about the person's own email, calendar, Drive files or Slack "
+        "messages is about live data in the apps connected to their personal agent"
+    ) in skill
+    assert "even when it names neither Iridium nor the app" in skill
+    assert "The agent's Memory holds only what was saved" in skill
+
+
 def test_distribution_archive_for_iridium_memory_has_a_valid_root(tmp_path):
     output = tmp_path / "iridium-memory.zip"
 
