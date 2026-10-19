@@ -11,8 +11,8 @@
     {
       "name": "iridium-memory",
       "source": "./plugins/iridium-memory",
-      "description": "Ask your assigned Iridium agents questions grounded in their Memory and Knowledge, and save to Memory when you ask.",
-      "version": "1.0.1",
+      "description": "Ask your assigned Iridium agents questions grounded in their Memory and Knowledge, save to Memory when you ask, and, where Tools is on, have your personal agent work in your apps with your approval.",
+      "version": "1.1.0",
       "author": {
         "name": "Iridium",
         "url": "https://iridiumai.co"
