@@ -1,6 +1,6 @@
 # Iridium Memory
 
-Iridium Memory connects Claude to the Iridium agents assigned to you, and to the Memory and Knowledge each of those agents is authorised to use. Ask a question and Claude answers from what your agent knows. Ask your agent to remember something and it is saved to that agent's Memory. Where your organisation has turned on Tools, your personal agent can also read your connected Gmail, Google Calendar, Google Drive and Slack, and make changes there that you approve.
+Iridium Memory connects Claude to the Iridium agents assigned to you, and to the Memory and Knowledge each of those agents is authorised to use. Ask a question and Claude answers from what your agent knows. Ask your agent to remember something and it is saved to that agent's Memory. Where Tools is turned on for your account, your personal agent can also read your connected Gmail, Google Calendar, Google Drive and Slack, and make changes there that you approve.
 
 ## What you can do
 
@@ -13,12 +13,12 @@ Agent names are chosen by each Iridium account, so use the name shown in yours. 
 
 ## Connected apps (Tools)
 
-Tools is available when your organisation's Iridium administrator has turned it on for your account. Connect Gmail, Google Calendar, Google Drive or Slack to your personal agent on its **Tools** page in Iridium, and choose what the agent may do in each app: Read, Read + draft, or Read + act.
+Tools is available when Iridium has turned it on for your account. Connect Gmail, Google Calendar, Google Drive or Slack to your personal agent on its **Tools** page in Iridium, and choose what the agent may do in each app: Read, Read + draft (Gmail and Drive) or Read + act.
 
 - **Reading** email, calendar events, Drive files and Slack messages happens when you ask, and changes nothing.
 - **Sends, replies, Slack posts, file shares and calendar changes** are only requested. Each one waits on your agent's **Approvals** page in Iridium until you approve it with your authenticator code, and expires after 30 minutes if you don't. Claude normally asks you before it makes the request too.
-- **Drafts** (email drafts and Drive files created from text) are made straight away and stay private to you. Nothing is sent.
-- **Agents never delete** anything in your apps.
+- **Drafts** (email drafts, and Drive files created from text outside a chosen folder) are made or updated straight away and stay private to you. Nothing is sent.
+- **Agents cannot delete** email, files or messages. A calendar change can cancel an event, and like every calendar change it waits for your approval.
 - Team and reporting agents have no app access.
 
 You can switch Tools off for Claude, change an app's level or disconnect an app on the Tools page at any time.
@@ -39,7 +39,7 @@ You need an Iridium account with at least one assigned agent. Your account admin
 - **Sign-in.** You sign in to Iridium through OAuth with PKCE. Claude receives an access token for your Iridium account; it never sees your password or authenticator code.
 - **Your requests.** When you ask an agent something, Claude sends your request and the agent you chose to Iridium, and Iridium returns the relevant Memory and Knowledge that agent is authorised to share with you.
 - **Saves.** When you explicitly ask an agent to remember something, Claude sends the content you asked to save. Nothing is saved otherwise.
-- **Connected apps (Tools).** When you ask your personal agent to use a connected app, Claude sends Iridium the action and its details, such as an email's recipients and text. Iridium runs it in the app through Composio, its provider for connected apps, and returns what the app gives back to Claude. Iridium does not keep copies of app content, and marks Slack content as never to be saved to Memory. Google's sign-in screen shows Composio when you connect a Google app.
+- **Connected apps (Tools).** When you ask your personal agent to use a connected app, Claude sends Iridium the action and its details, such as an email's recipients and text. Iridium runs it in the app through Composio, its provider for connected apps, and returns what the app gives back to Claude. Iridium does not keep copies of what it reads from your apps, and marks Slack results as not for saving to Memory. A change waiting for your approval, such as an email or Slack message, is kept until you approve or decline it, or it expires. Google's sign-in screen shows Composio when you connect a Google app.
 - **Nothing runs on your computer.** The plugin contains one skill (instructions that help Claude use the Iridium tools) and the server address. It has no hooks, scripts, local servers or bundled credentials.
 
 ## Privacy
