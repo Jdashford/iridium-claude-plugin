@@ -13,12 +13,12 @@ Agent names are chosen by each Iridium account, so use the name shown in yours. 
 
 ## Connected apps (Tools)
 
-Tools is available when Iridium has turned it on for your account. Connect Gmail, Google Calendar, Google Drive or Slack to your personal agent on its **Tools** page in Iridium, and choose what the agent may do in each app: Read, Read + draft (Gmail and Drive) or Read + act.
+Tools is available when Iridium has turned it on for your account. Connect Gmail, Google Calendar, Google Drive, Slack or Notion to your personal agent on its **Tools** page in Iridium, and choose what the agent may do in each app: Read, Read + draft (Gmail and Drive) or Read + act.
 
-- **Reading** email, calendar events, Drive files and Slack messages happens when you ask, and changes nothing.
-- **Sends, replies, Slack posts, file shares and calendar changes** are only requested. Each one waits on your agent's **Approvals** page in Iridium until you approve it with your authenticator code, and expires after 30 minutes if you don't. Claude normally asks you before it makes the request too.
+- **Reading** email, calendar events, Drive files, Slack messages and Notion pages happens when you ask, and changes nothing.
+- **Sends, replies, Slack posts, file shares, calendar changes and anything written in Notion** (new pages, text, database rows and comments) are only requested. Each one waits on your agent's **Approvals** page in Iridium until you approve it with your authenticator code, and expires after 30 minutes if you don't. Claude normally asks you before it makes the request too.
 - **Drafts** (email drafts, and Drive files created from text outside a chosen folder) are made or updated straight away and stay private to you. Nothing is sent.
-- **Agents cannot delete or cancel** email, files, messages or events.
+- **Agents cannot delete or cancel** email, files, messages or events, and in Notion they only add: they cannot archive, move or change existing pages.
 - Team and reporting agents have no app access.
 
 You can switch Tools off for Claude, change an app's level or disconnect an app on the Tools page at any time.
